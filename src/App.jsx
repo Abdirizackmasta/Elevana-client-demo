@@ -33,54 +33,60 @@ import AdminReports from './pages/admin/Reports.jsx';
 import AdminSettings from './pages/admin/Settings.jsx';
 import TermsOfService from './pages/TermsOfService.jsx';
 import PrivacyPolicy from './pages/PravcyPolicy.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 function App() {
   return (
-    <Routes>
-      <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:slug" element={<CourseDetails />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+    <>
+      <ScrollToTop />
+
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:slug" element={<CourseDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/my-courses" element={<MyCourses />} />
+            <Route path="/certificates" element={<Certificates />} />
+            <Route path="/checkout/:slug" element={<Checkout />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/my-courses" element={<MyCourses />} />
-          <Route path="/certificates" element={<Certificates />} />
-          <Route path="/checkout/:slug" element={<Checkout />} />
+          <Route path="/learn/:courseId" element={<LessonPlayer />} />
         </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Route>
-
-      <Route element={<ProtectedRoute />}>
-        <Route path="/learn/:courseId" element={<LessonPlayer />} />
-      </Route>
-
-      <Route element={<AdminRoute />}>
-        <Route element={<AdminLayout />}>
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/courses" element={<AdminCourses />} />
-          <Route path="/admin/courses/new" element={<AdminCourseEditor />} />
-          <Route path="/admin/courses/:id/edit" element={<AdminCourseEditor />} />
-          <Route path="/admin/courses/:id/curriculum" element={<AdminCurriculum />} />
-          <Route path="/admin/categories" element={<AdminCategories />} />
-          <Route path="/admin/students" element={<AdminStudents />} />
-          <Route path="/admin/students/:id" element={<AdminStudentDetail />} />
-          <Route path="/admin/payments" element={<AdminPayments />} />
-          <Route path="/admin/reports" element={<AdminReports />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
+        <Route element={<AdminRoute />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/courses" element={<AdminCourses />} />
+            <Route path="/admin/courses/new" element={<AdminCourseEditor />} />
+            <Route path="/admin/courses/:id/edit" element={<AdminCourseEditor />} />
+            <Route path="/admin/courses/:id/curriculum" element={<AdminCurriculum />} />
+            <Route path="/admin/categories" element={<AdminCategories />} />
+            <Route path="/admin/students" element={<AdminStudents />} />
+            <Route path="/admin/students/:id" element={<AdminStudentDetail />} />
+            <Route path="/admin/payments" element={<AdminPayments />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 
 export default App;
+
